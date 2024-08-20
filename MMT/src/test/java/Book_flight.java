@@ -1,11 +1,10 @@
-package definitions;
+
 
 import java.time.Duration;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -22,10 +21,15 @@ public class Book_flight {
 	
 @Before
 public void before() {
-	WebDriverManager.chromedriver().setup();
-	driver = new ChromeDriver();
+	ChromeOptions options = new ChromeOptions();
+	options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
+    options.addArguments("accept-language=en-US,en;q=0.9");
+    options.addArguments("referer=https://www.google.com");
+    WebDriverManager.chromedriver().setup();
+	driver = new ChromeDriver(options);
 	driver.manage().window().maximize();
 	wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+	
 }
 @Given("I navigate to MakeMyTrip")
   public void I_navigate_to_MakeMyTrip() {
@@ -93,8 +97,8 @@ public void before() {
 	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@data-cy='infants-1']"))).click();
   }
 @When("I Select {string}")
-  public void i_select(String string) {
-	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='Premium Economy']"))).click();
+  public void i_select(String ty) {
+	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='"+ty+"']"))).click();
   }
 @When("I click on apply")
   public void i_click_on_apply() {
@@ -102,16 +106,17 @@ public void before() {
 	
   }
 @When("I Select the {string}")
-  public void i_select_the(String string) {
-	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Regular']"))).click();
+  public void i_select_the(String cl) {
+	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='"+cl+"']"))).click();
   }
 @When("I click on search")
   public void i_click_on_search() {
 	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Search']"))).click();
   }
+
 @Then("I Close the browser")
   public void i_close_the_browser() {
-      // Write code here that turns the phrase above into concrete actions
+      driver.quit();
       
   }
 }
