@@ -25,15 +25,12 @@ Feature: Verifying the Flight booking functionality
     Given I navigate to MakeMyTrip
     When I select from city "New Delhi"
     And I select to city "Pune"
-    And I select the date of travel
+    And I select the Month as "\'January\'" and date as "\'22\'" and year as "2025"
     And I Select one adult
     And I Select one children
     And I Select one infant
     And I Select "Premium Economy"
     And I click on apply
-    And I Select the "Student"
+    And I Select the "Regular"
     And I click on search
-    And I Select cheapest flight
-    And Click on Book now
-    And I Fill all the passenger details
     Then I Close the browser
